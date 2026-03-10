@@ -103,6 +103,8 @@ async fn main() -> anyhow::Result<()> {
     // build our application with a route
     let app = Router::new()
         .without_v07_checks()
+        // REST API endpoints - mounted at /api prefix
+        .nest("/api", pmrapp::rest::create_router())
         // TODO the path should be constructed from a known list, so that rewriting only happens
         // to this route only if it exists.
         .route("/collection_json/workspace/", get(collection_json_workspace))
